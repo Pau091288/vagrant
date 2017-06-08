@@ -1,0 +1,19 @@
+- name: Ensure install git in items
+  apt: name={{ item }} state=present
+  with_items:
+    - git
+
+- name: Ensure install node js
+  apt: name={{ item }} state=present
+  with_items:
+    - nodejs
+    - npm  
+
+- name: Ensure install package 
+  apt: name={{ item }} state=present
+  with_items:
+    - curl
+
+- name: verify version nodejs
+  shell: nodejs --version update_cache=yes
+  tags: verify_node

@@ -1,0 +1,5 @@
+- name: Ensure configuration npm
+  shell: npm cache clean -f && npm config set registry http://registry.npmjs.org/
+
+- name: Ensure install express
+  shell: npm install express

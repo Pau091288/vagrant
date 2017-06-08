@@ -1,0 +1,20 @@
+- name: Ensure add repository php7.0
+  apt_repository: repo='ppa:ondrej/php' state=present
+  tags: add_repository
+
+- name: Actualizar
+  apt: update_cache=yes
+
+- name: Ensure install dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - php7.0-fpm
+    - php7.0-mysql
+    - php7.0-cli
+    - php7.0-gd
+    - php7.0-json
+    - php7.0-curl
+    - php7.0-soap
+    - php7.0-zip
+    - php7.0-xml
+    - php7.0-cli

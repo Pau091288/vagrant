@@ -1,0 +1,12 @@
+- name: Ensure install nginx
+  apt: name={{ item }} state=present
+  with_items: 
+    - nginx
+
+- name: Ensure restart service nginx
+  shell: service nginx restart
+  tags: version_nginx
+
+- name: Ensure absent default file
+  set_fact: src=/etc/nginx/sites-available/default state=absent
+  tags: absent_default
