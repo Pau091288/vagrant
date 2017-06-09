@@ -1,0 +1,7 @@
+---
+
+- name: Fix nginx folder permission
+  file: path=/var/lib/nginx state=directory owner=www-data group=www-data mode=0700 recurse=yes
+
+- name: Fix nginx logs folder permission
+  file: path=/var/log/nginx state=directory owner=www-data group=www-data mode=0600 recurse=yes

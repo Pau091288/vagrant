@@ -3,3 +3,4 @@
 dependencies:
   - { role: php }
   - { role: nginx }
+  - { role: mysql }

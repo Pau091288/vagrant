@@ -1,2 +1,8 @@
+---
+
+- include: directories.yml
 - include: install.yml
-- include: configuration.yml
+
+#- include: http_auth.yml
+#  tags: http_auth
+#  when: nginx.http_auth_users|length > 0

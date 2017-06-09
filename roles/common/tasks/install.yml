@@ -15,5 +15,6 @@
     - curl
 
 - name: verify version nodejs
-  shell: nodejs --version update_cache=yes
+  shell: nodejs --version 
+  #update_cache=yes
   tags: verify_node

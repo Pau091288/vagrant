@@ -1,3 +1,0 @@
-- name: Ensure template nginx
-  template: src=../templates/bob.conf.j2 dest="/etc/nginx/sites-enabled/bob.conf" mode=0640 owner=root group=root
-  #with_items: "{{ cnts }}"
