@@ -1,5 +1,6 @@
 - name: Ensure install mysql
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present # enabled=yes
   with_items:
     - mysql-server
+  tags: mysqlInstall
 

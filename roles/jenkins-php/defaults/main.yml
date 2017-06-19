@@ -1,0 +1,22 @@
+---
+jenkins:
+  deb:
+    repo: 'deb http://pkg.jenkins-ci.org/debian binary/' # Jenkins repository
+    key: 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key' # Jenkins key
+  php: 
+    php_version: 5
+    max_execution_time: 30
+    max_input_time: 60
+    memory_limit: 128M
+    upload_max_filesize: 8M
+    allow_url_fopen: On
+    allow_url_include: Off
+    session_cookie_httponly: 1
+    display_errors: Off
+    error_reporting: E_ALL & ~E_DEPRECATED
+    frameworks:
+       base_directory: /var/www/
+       sources:
+          - name: Yii
+            download_url: https://github.com/yiisoft/yii/releases/download/1.1.14/
+            filename: yii-1.1.14.f0fee9.tar.gz
