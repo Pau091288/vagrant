@@ -8,7 +8,8 @@ Vagrant.configure("2") do |config|
       machine.vm.box = "ubuntu/trusty64"
       #machine.vm.hostname = "%s.linio-staging.com" % name
       machine.vm.network :private_network, ip: host_config[:ip]
-      config.vm.network :forwarded_port, guest: 22, host: host_config[:port], id: "ssh", auto_correct: true
+      #config.vm.network :forwarded_port, guest: 22, host: host_config[:port], id: "ssh", auto_correct: true
+    
       machine.vm.provider "virtualbox" do |v|
           v.name = name
           v.customize ["modifyvm", :id, "--memory", 384]

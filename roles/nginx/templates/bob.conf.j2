@@ -1,43 +1,63 @@
 server {
-    listen   80;
-    server_name example.page;
-    
-    access_log /var/log/nginx/bob.access.log;
-    error_log /var/log/nginx/bob.error.log;
-    gzip on;
-    gzip_min_length 1000;
-    gzip_types text/plain text/xml application/xml;
-    client_max_body_size 25m;
-    
-    root /vagrant/nuevo;
-    try_files $uri $uri/ /index.php?$args;
-    index index.html index.php;
+    listen 80;
+    #listen 80 default_server;
+    #listen [::]:80 default_server ipv6only=on;
+
+    #root /usr/share/nginx/html;
+    root /vagrant/repos/shop/bob/public;
+    index index.html index.htm;
+
+    # Make site accessible from http://localhost/
+    #server_name localhost;
+    server_name linio.bob$;
+        if ($host ~ "^linio(.*).bob") {
+            set $mux $1;
+     }
+
     location / {
-        index index.php;
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+        # Uncomment to enable naxsi on this location
+        # include /etc/nginx/naxsi.rules
     }
-    # Zugriff auf sensible Dateien verwehren
-    location ~ (\.inc\.php|\.tpl|\.sql|\.tpl\.php|\.db)$ {
-        deny all;
-    }
-    # Die htaccess brauchen wir nicht mehr - und wenn sie noch da is
-    # sollte sie nicht angezeigt werden
-    location ~ \.htaccess {
-        deny all;
-    }
-    # Die eigentliche RewriteRule für das Zend Framework
-    if (!-e $request_filename) {
-        rewrite ^.*$ /index.php last;
-    }
-  location ~ \.php$ {
-    fastcgi_cache   off;
-    fastcgi_pass    127.0.0.1:9000;
-    fastcgi_index  index.php;
-    include        fastcgi_params;
-    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    fastcgi_param  APPLICATION_ENV dev;
-    fastcgi_param  APPLICATION_STORE $mux;
-    fastcgi_param  HTTPS $https;
-    fastcgi_read_timeout 9999;
-  }
+
+    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+    #location /RequestDenied {
+    #   proxy_pass http://127.0.0.1:8080;    
+    #}
+
+    #error_page 404 /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    #error_page 500 502 503 504 /50x.html;
+    #location = /50x.html {
+    #   root /usr/share/nginx/html;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #   fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #   # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    #
+    #   # With php5-cgi alone:
+    #   fastcgi_pass 127.0.0.1:9000;
+    #   # With php5-fpm:
+    #   fastcgi_pass unix:/var/run/php5-fpm.sock;
+    #   fastcgi_index index.php;
+    #   include fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #   deny all;
+    #}
 }
+
+
+
 

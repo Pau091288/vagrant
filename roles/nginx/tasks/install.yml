@@ -1,50 +1,29 @@
----
-
-- name: Ensure nginx is installed
+- name: Ensure install nginx
   apt: name={{ item }} state=present
   with_items:
+    - build-essential
+    - software-properties-common
+    - openssh-server
     - nginx
-    - nginx-extras
+    - supervisor
+    - wget
 
-- name: Remove unecessary files
-  file: path=/etc/nginx/sites-enabled/default state=absent
+- name: Add virtualhost configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/nginx.conf
+  with_items: virtual_hosts
+  notify: nginx reload
 
-- name: Ensure nginx ssl directory exists
-  file: path=/etc/nginx/ssl state=directory owner=root group=root mode=0644
+- name: Add template bob.conf.j2 to default connection
+  template: src=bob.conf.j2 dest=/etc/nginx/sites-available/default
+  tags: template_nginx
 
-#- local_action: stat path="roles/nginx/files/ssl/{{ domain }}.crt"
-#  register: ssl_files
-#  tags: certificates
-
-#- name: Ensure ssl certificates are copied
-#  copy: src=ssl/{{ item }} dest=/etc/nginx/ssl/{{ item }} mode=0644 owner=root group=root
-#  when: ssl_files.stat.exists
-#  tags: certificates
-#  with_items:
-#    - "{{ domain }}.crt"
-#    - "{{ domain }}.key"
-
-#- name: Ensure nginx is configured
-#  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
-#  tags: vhosts
-
-- name: Ensure nginx status virtual host is configured
-#  template: src=status_vhost.conf.j2 dest={{ nginx_virtual_hosts_path }}/nginx_status.conf owner=root group=root mode=0644
-  template: src=../templates/bob.conf.j2 dest="/etc/nginx/sites-enabled/bob.conf" mode=0640 owner=root group=root
-
-#- name: Ensure mime types are present
-#  copy: src=mime.types dest=/etc/nginx/mime.types mode=0644 owner=root group=root
-#  notify: restart nginx
-
-- name: Ensure nginx is running and enabled
-  service: name=nginx state=started enabled=yes
-
-- name: Ensure Python dependencies are installed
-  apt: name={{ item }} state=present
-  with_items:
-    - python-pip
-    - python-dev
-
-- name: Ensure Python passlib is installed
-  pip: name=passlib state=present
-  tags: http_users
+- name: Enable virtualhosts
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  when: item.disabled is not defined
+  with_items: virtual_hosts
+  notify: nginx reload

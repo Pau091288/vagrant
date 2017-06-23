@@ -1,8 +1,0 @@
----
-
-
-
-#- name: Ensure http auth users are set
-#  htpasswd: path=/etc/nginx/htpasswd name="{{ item.key }}" password="{{ item.value }}" owner=root group=root mode=0644
-#  with_dict: "{{ nginx.http_auth_users }}"
-#  tags: http_users

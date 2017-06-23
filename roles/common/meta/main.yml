@@ -1,7 +1,7 @@
---- 
+---
 
 dependencies:
   - { role: php }
   - { role: nginx }
   - { role: mysql }
-  - { role: jenkins-php }
+#  - { role: jenkins-php }
