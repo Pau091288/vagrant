@@ -1,0 +1,48 @@
+server {
+  listen 80;
+
+  server_name linio.bob$;
+  if ($host ~ "^linio(.*).bob") {
+    set $mux $1;
+  }
+
+  access_log /var/log/nginx/bob.access.log;
+  error_log /var/log/nginx/bob.error.log;
+
+  gzip on;
+  gzip_min_length 1000;
+  gzip_types text/plain text/xml application/xml;
+
+  client_max_body_size 20m;
+  client_header_timeout 300s;
+  client_body_timeout 300s;
+  send_timeout 300s;
+  keepalive_timeout 300s;
+
+  root /vagrant/repos/shop/bob/public/;
+
+  try_files $uri $uri/ /index.php?$args;
+  index index.html index.php;
+  location / {
+    index index.php;
+  }
+
+  location ~ \.php$ {
+    fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+    fastcgi_pass unix:/var/x:/var/run/php/php7-fpm.sockrun/php/php7-fpm.sock;
+    fastcgi_index index.php;
+
+    fastcgi_connect_timeout 300s;
+    fastcgi_send_timeout 300s;
+    fastcgi_read_timeout 300s;
+
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param APPLICATION_ENV staging;
+    #fastcgi_param APPLICATION_STORE mx;
+    fastcgi_param HTTPS on;
+    fastcgi_param PHP_VALUE "date.timezone = 'America/Mexico_City'";
+  }
+
+
+}

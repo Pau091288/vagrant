@@ -1,0 +1,16 @@
+----
+configuration:
+  mysql:
+    user: root
+    password: ''
+
+  coutries:
+    - ar
+    - ar-hp
+    - cl
+    - cl-hp
+    - co
+    - co-av
+    - co-hp
+
+

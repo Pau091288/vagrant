@@ -8,22 +8,18 @@
     - supervisor
     - wget
 
-- name: Add virtualhost configuration
-  template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/sites-available/nginx.conf
-  with_items: virtual_hosts
-  notify: nginx reload
+- name: Inhabilitar default
+  file: path=/etc/nginx/sites-available/default state=absent 
+  tags: desdefault
 
-- name: Add template bob.conf.j2 to default connection
-  template: src=bob.conf.j2 dest=/etc/nginx/sites-available/default
+- name: Inhabilitar default sites-enabled
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags: desdefault2
+
+- name: Add template server.conf.j2 to default connection
+  template: src=server.conf.j2 dest=/etc/nginx/sites-enabled/bob.conf mode=0600
   tags: template_nginx
 
-- name: Enable virtualhosts
-  file:
-    src: /etc/nginx/sites-available/default
-    dest: /etc/nginx/sites-enabled/default
-    state: link
-  when: item.disabled is not defined
-  with_items: virtual_hosts
-  notify: nginx reload
+
+- name: Restart service nginx
+  shell: service nginx restart

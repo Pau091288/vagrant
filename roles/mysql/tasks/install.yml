@@ -4,3 +4,7 @@
     - mysql-server
   tags: mysqlInstall
 
+
+- name: Crear estructura de bases de datos
+  shell: mysql -u {{ configuration.mysql.user }} -p {{ configuration.mysql.password }}
+  tags: probar conexion

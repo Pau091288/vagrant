@@ -5,12 +5,12 @@ server {
 
     #root /usr/share/nginx/html;
     root /vagrant/repos/shop/bob/public;
-    index index.html index.htm;
+    index index.html index.php;
 
     # Make site accessible from http://localhost/
     #server_name localhost;
-    server_name linio.bob$;
-        if ($host ~ "^linio(.*).bob") {
+    server_name linio2.bob$;
+        if ($host ~ "^linio2(.*).bob") {
             set $mux $1;
      }
 
