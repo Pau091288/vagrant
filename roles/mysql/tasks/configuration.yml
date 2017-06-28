@@ -1,3 +1,0 @@
-#- name: Ensure install mysql
-#  file: src='/usr/local/mysql'
-  

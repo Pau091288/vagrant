@@ -41,19 +41,58 @@
 
 - name: Ensure copy database
   copy:
-    src: bob_cl_SD.sql
+    #src: bob_cl_SD.sql
+    src: databases/cl/bob_cl_Data.sql
     dest: /tmp
     mode: 0777
   tags: copy
 
-- name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+- name: Import file.sql structure
   mysql_db:
-    name: bob_cl
+    name: bob_{{ item }}
     login_user: root 
     login_password: ''
     state: import
-    target: /tmp/bob_cl_SD.sql
+    target: /vagrant/roles/mysql/files/databases/{{ item }}/bob_{{ item }}_SD.sql
   with_items:
+    - ar
+    - ar_hp
     - cl
-    #- ar-hp
+    - cl_hp
+    - co
+    - co_av
+    - co_hp
+    - ec
+    - mx
+    - mx_cp
+    - mx_hp
+    - pa
+    - pe
+    - pe_av
+    - pe_hp
+    - ve
   tags: import
+
+- name: Import file.sql with Data
+  mysql_db:
+    name: bob_{{ item }}
+    state: import
+    target: /vagrant/roles/mysql/files/databases/{{ item }}/bob_{{ item }}_Data.sql
+  with_items:
+    - ar
+    - ar_hp
+    - cl
+    #- cl_hp
+    #- co
+    #- co_av
+    #- co_hp
+    #- ec
+    #- mx
+    #- mx_cp
+    #- mx_hp
+    #- pa
+    #- pe
+    #- pe_av
+    #- pe_hp
+    #- ve
+  tags: data

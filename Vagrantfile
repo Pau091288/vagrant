@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     
       machine.vm.provider "virtualbox" do |v|
           v.name = name
-          v.customize ["modifyvm", :id, "--memory", 384]
+          v.customize ["modifyvm", :id, "--memory", 3000]
       end
        
       machine.vm.provision "ansible" do |ansible|
