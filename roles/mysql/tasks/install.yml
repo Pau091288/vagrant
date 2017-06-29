@@ -16,6 +16,11 @@
 - name: Install MySQL-python with pip
   shell: pip install MySQL-python
 
+- name: Copiar archivos de configuración en my.cnf
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf mode=0600
+  tags: template_mysql
+  notify: restart mysql
+
 - name: Create a new database with name
   mysql_db:
     state: present

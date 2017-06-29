@@ -1,0 +1,100 @@
+[client]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
+
+[mysqld]
+user = mysql
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+port = 3306
+basedir	= /usr
+datadir	= /var/lib/mysql
+tmpdir = /tmp
+lc-messages-dir	= /usr/share/mysql
+skip-external-locking
+
+bind-address = 127.0.0.1
+key_buffer = 16M
+
+max_allowed_packet = 2G
+innodb_log_file_size = 1024M
+
+myisam-recover = BACKUP
+;table_cache = 64
+;thread_concurrency = 10
+
+
+;general_log_file = /var/log/mysql/mysql.log
+;general_log = 1
+
+log_error = /var/log/mysql/error.log
+
+;log_slow_queries = /var/log/mysql/mysql-slow.log
+;long_query_time = 2
+;log-queries-not-using-indexes
+
+;server-id = 1
+;log_bin = /var/log/mysql/mysql-bin.log
+expire_logs_days = 10
+max_binlog_size = 100M
+;binlog_do_db = include_database_name
+;binlog_ignore_db = include_database_name
+
+;server-id = 1
+;log_bin = /var/log/mysql/mysql-bin.log
+expire_logs_days = 10
+max_binlog_size = 100M
+;binlog_do_db = include_database_name
+;binlog_ignore_db = include_database_name
+
+;chroot = /var/lib/mysql/
+
+;ssl-ca=/etc/mysql/cacert.pem
+;ssl-cert=/etc/mysql/server-cert.pem
+;ssl-key=/etc/mysql/server-key.pem
+
+character_set_server = utf8
+collation_server = utf8_general_ci
+connect_timeout = 1000000
+init-connect = 'SET NAMES utf8'
+innodb_log_buffer_size = 1M
+;innodb_log_file_size = 512M
+innodb_open_files = 500000
+innodb_purge_threads = 1
+innodb_read_io_threads = 12
+innodb_stats_on_metadata = off
+innodb_write_io_threads = 18
+join_buffer_size = 1M
+key_buffer_size = 128M
+long_query_time = 2
+max_connections = 500
+max_heap_table_size = 768M
+open_files_limit = 500000
+query_cache_limit = 0
+query_cache_size = 0
+query_cache_type = 0
+read_buffer_size = 1M
+read_rnd_buffer_size = 8M
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql-slow.log
+sort_buffer_size = 12M
+sql_mode = "ALLOW_INVALID_DATES"
+thread_cache_size = 64
+thread_stack = 192K
+tmp_table_size = 768M
+wait_timeout = 5000
+
+[mysqldump]
+quick
+quote-names
+
+max_allowed_packet = 2G
+
+[mysql]
+no-auto-rehash	
+
+[isamchk]
+key_buffer = 16M
+
+!includedir /etc/mysql/conf.d/

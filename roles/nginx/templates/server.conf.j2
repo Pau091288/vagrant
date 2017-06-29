@@ -29,7 +29,7 @@ server {
 
   location ~ \.php$ {
     fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-    fastcgi_pass unix:/var/x:/var/run/php/php7-fpm.sockrun/php/php7-fpm.sock;
+    fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
 
     fastcgi_connect_timeout 300s;
