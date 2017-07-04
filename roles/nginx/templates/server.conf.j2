@@ -2,7 +2,7 @@ server {
   listen 80;
 
   server_name linio.bob$;
-  if ($host ~ "^linio(.*).bob") {
+  if ($host ~ "^linio_(.*).bob") {
     set $mux $1;
   }
 

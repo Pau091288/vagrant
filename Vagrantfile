@@ -1,5 +1,6 @@
 hosts = {
-  "Shop"   => { ip: "192.10.0.5", port: 2202 },
+  "Shop"   => { ip: "192.10.0.5"},
+  "b4a"   => { ip: "192.10.0.6"},
 }
 
 Vagrant.configure("2") do |config|

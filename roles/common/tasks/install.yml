@@ -18,3 +18,9 @@
   shell: nodejs --version 
   #update_cache=yes
   tags: verify_node
+
+- name: Install dialog
+  shell: sudo apt-get install dialog -y
+
+- name: Install composer
+  shell: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
