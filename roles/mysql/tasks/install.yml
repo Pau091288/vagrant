@@ -60,22 +60,22 @@
     state: import
     target: /vagrant/roles/mysql/files/databases/{{ item }}/bob_{{ item }}_SD.sql
   with_items:
-    - ar
-    - ar_hp
+    #- ar
+    #- ar_hp
     - cl
-    - cl_hp
-    - co
-    - co_av
-    - co_hp
+    #- cl_hp
+    #- co
+    #- co_av
+    #- co_hp
     - ec
-    - mx
-    - mx_cp
-    - mx_hp
-    - pa
-    - pe
-    - pe_av
-    - pe_hp
-    - ve
+    #- mx
+    #- mx_cp
+    #- mx_hp
+    #- pa
+    #- pe
+    #- pe_av
+    #- pe_hp
+    #- ve
   tags: import
 
 - name: Import file.sql with Data
@@ -84,14 +84,14 @@
     state: import
     target: /vagrant/roles/mysql/files/databases/{{ item }}/bob_{{ item }}_Data.sql
   with_items:
-    - ar
-    - ar_hp
+    #- ar
+    #- ar_hp
     - cl
     #- cl_hp
     #- co
     #- co_av
     #- co_hp
-    #- ec
+    - ec
     #- mx
     #- mx_cp
     #- mx_hp

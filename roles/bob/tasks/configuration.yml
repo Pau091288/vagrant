@@ -1,0 +1,10 @@
+- name: Configurar parameters.ini
+  copy: src=parameter.ini.j2 path=/vagrant/repos/shop/bob/application/local/configs/parameters.ini mode=777
+  tags: parameters
+
+- name: Configurar parameters.{country}.ini
+  copy: src=parameter.store.ini.j2 path=/vagrant/repos/shop/bob/application/local/configs/parameters.{{ item }}.ini mode=777
+  with_items:
+    - cl
+    #- ec
+  tags: parameters_store

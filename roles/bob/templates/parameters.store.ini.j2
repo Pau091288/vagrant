@@ -1,0 +1,43 @@
+[live]
+;## WRITE ##
+resources.multidb.writer.host = "localhost"
+resources.multidb.writer.username = "root"
+resources.multidb.writer.password = ""
+resources.multidb.writer.dbname = "{{ bob_item[cl] }}"
+
+;## READ ##
+resources.multidb.reader.host = "localhost"
+resources.multidb.reader.username = "root"
+resources.multidb.reader.password = ""
+resources.multidb.reader.dbname = "{{ bob_item[cl] }}"
+
+;## ALICE ##
+; URL needed for sitemap generation
+alice.hostname = "%alice.hostname%"
+
+;## CATALOG ##
+catalog.image_base_url = "%catalog.image_base_url%"
+catalog.image_directory = "%catalog.image_directory%"
+
+; PAY CLUB
+payment.payclub.keypath = "%payment.payclub.keypath%"
+
+;## invoices
+;subdirectory for different types of invoices are in use and should be created before, e.g. /merchants or /customers
+invoices.save_path = "%invoices.save_path%"																				
+
+;## monitoring options ##
+;empty string means monitoring is disabled. value could be http://bob.local/monitoring.json
+monitoring.dashboard.json.url = "%monitoring.json.url%"
+
+product-sync.server.local-data-path = "%product-sync.server.local-data-path%"
+
+cris.wsdl_url = "https://cr5w5cptest.clubpremier.com/Mercator.CRIS.WebService.TESTCRIS/MemberWebService.asmx?WSDL"
+cris.username = LINIO
+cris.password = NPRGQNC2SYWLRYCT
+
+avianca.request.username = ''
+avianca.request.password = ''
+
+[staging : live]
+[dev : live]
