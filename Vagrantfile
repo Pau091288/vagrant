@@ -3,6 +3,7 @@ hosts = {
   "test01"   => { ip: "192.10.0.6", port: 2203 },
 }
 
+#add configuration
 Vagrant.configure("2") do |config|
   hosts.each do |name, host_config|
     config.vm.define name do |machine|
