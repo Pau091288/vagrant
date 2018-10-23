@@ -1,7 +1,7 @@
 hosts = {
   "Shop"   => { ip: "192.10.0.5", port: 2202 },
   "test01"   => { ip: "192.10.0.6", port: 2203 },
-  "test02"   => { ip: "192.10.0.7", port: 2204 },
+  #"test02"   => { ip: "192.10.0.7", port: 2204 },
 }
 
 #add configuration
